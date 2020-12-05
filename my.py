@@ -1,6 +1,6 @@
 # GUI.py
 import pygame
-from solver import solve, valid
+from Solver import solve, valid
 import time
 from Puzzle import Generate_Puzzle
 from Cube import Cube
