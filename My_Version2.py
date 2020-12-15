@@ -5,9 +5,7 @@ from Solver import solve, valid, find_empty
 import time
 from Puzzle import Generate_Puzzle
 from Cube_Version2 import Cube
-from menu import menu
-
-pygame.font.init()
+from Menu import menu
 
 
 class Grid:
@@ -118,7 +116,7 @@ class Grid:
                 self.cubes[row][col].draw_change(self.win, True)
                 self.update_model()
                 pygame.display.update()
-                pygame.time.delay(30)  ##################################
+                pygame.time.delay(20)  ##################################
 
                 if self.solve_gui():
                     return True
@@ -128,7 +126,7 @@ class Grid:
                 self.update_model()
                 self.cubes[row][col].draw_change(self.win, False)
                 pygame.display.update()
-                pygame.time.delay(30)
+                pygame.time.delay(20)
 
         return False
 
@@ -169,6 +167,7 @@ def main():
         else:
             print("Invalid option")
 
+        pygame.font.init()
         win = pygame.display.set_mode((540, 600))
         pygame.display.set_caption("Sudoku")
         board = Grid(9, 9, 540, 540, win, level)
@@ -217,15 +216,17 @@ def main():
 
                             if board.is_finished():
                                 print("Game over")
+                                pygame.time.delay(10000)
                                 run = False
-                               # pygame.quit()
+                                #Spygame.quit()
                     # auto solver
                     if event.key == pygame.K_SPACE:
                         board.solve_gui()
                         if board.is_finished():
                                 print("Game over")
                                 run = False
-                              #  pygame.quit()
+                                pygame.time.delay(10000)
+                                #pygame.quit()
 
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
@@ -240,11 +241,13 @@ def main():
 
             redraw_window(win, board, play_time, strikes)
             pygame.display.update()
+        
         pygame.quit()
         print()
         menu() 
         option = int(input("enter your option: "))
-
+    
+    print("Thanks for playing the game!!")
 
 main()
 pygame.quit()
