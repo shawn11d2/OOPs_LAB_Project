@@ -1,4 +1,5 @@
 # GUI.py
+
 import pygame
 from solver import solve, valid, find_empty
 import time
