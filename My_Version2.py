@@ -1,20 +1,26 @@
 # GUI.py
 
 import pygame
-from solver import solve, valid, find_empty
+from Solver import solve, valid, find_empty
 import time
 from Puzzle import Generate_Puzzle
-from Cube import Cube
+from Cube_Version2 import Cube
 
 pygame.font.init()
 
 
 class Grid:
-    #  object1 = Generate_Puzzle()
-    #  board = object1.copy_puzzle
-    board = Generate_Puzzle().copy_puzzle
+    
 
     def __init__(self, rows, cols, width, height, win):
+        #initialize levels
+        self.level = 'easy'
+        #self.level = 'medium'
+        #self.level = 'hard'
+
+        #use the above level to generate puzzle
+        self.board = Generate_Puzzle(self.level).copy_puzzle
+        
         self.rows = rows
         self.cols = cols
         self.cubes = [[Cube(self.board[i][j], i, j, width, height) for j in range(cols)] for i in range(rows)]
@@ -110,7 +116,7 @@ class Grid:
                 self.cubes[row][col].draw_change(self.win, True)
                 self.update_model()
                 pygame.display.update()
-                pygame.time.delay(10)  ##################################
+                pygame.time.delay(50)  ##################################
 
                 if self.solve_gui():
                     return True
@@ -120,7 +126,7 @@ class Grid:
                 self.update_model()
                 self.cubes[row][col].draw_change(self.win, False)
                 pygame.display.update()
-                pygame.time.delay(10)
+                pygame.time.delay(50)
 
         return False
 
@@ -141,7 +147,7 @@ def redraw_window(win, board, time, strikes):
 def format_time(secs):
     sec = secs % 60
     minute = secs // 60
-    hour = minute // 60
+    #hour = minute // 60
 
     mat = " " + str(minute) + ":" + str(sec)
     return mat
@@ -200,6 +206,10 @@ def main():
                 # auto solver
                 if event.key == pygame.K_SPACE:
                     board.solve_gui()
+                    if board.is_finished():
+                            print("Game over")
+                            run = False
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 clicked = board.click(pos)

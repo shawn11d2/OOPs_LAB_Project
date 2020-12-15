@@ -7,21 +7,26 @@ import copy
 import random
 from Solver import find_empty
 
-class Generate_Puzzle(object):
+class Generate_Puzzle():
     '''
     classdocs
-    generate full puzzle solution
+    generate full puzzle solution using the levels passed as input
     send copy_pzzle by hiding places to my.py
     uses find_empty from Solver.py to find the empty spaces in the puzzle
     '''
 
 
-    def __init__(self):
+    def __init__(self, level):
         '''
         Constructor
         '''
-        
-        
+        if level == 'easy':
+            self.numOfPlacesToHide = 4
+        elif level == 'medium':
+            self.numOfPlacesToHide = 6
+        elif level == 'hard':
+            self.numOfPlacesToHide = 8
+
         self. grid = [ [0 for i in range(9)] for j in range(9) ]
         
         self.generate_solution(self.grid)
@@ -87,9 +92,9 @@ class Generate_Puzzle(object):
         for row in range(9):
             #number of places to hide
             if row % 2 == 0:
-                num = 4
+                num = self.numOfPlacesToHide
             else:
-                num = 6
+                num = self.numOfPlacesToHide + 2
             
             #hide places iterating over each row
             for i in range(num):
