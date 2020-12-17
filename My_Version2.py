@@ -30,7 +30,7 @@ class Grid:
         self.selected = None
         self.win = win
 
-    def update_model(self):
+    def update_model(self):                 # storing values as list of list(for validation)
         self.model = [[self.cubes[i][j].value for j in range(self.cols)] for i in range(self.rows)]
 
     def place(self, val):
@@ -100,7 +100,7 @@ class Grid:
                 if self.cubes[i][j].value == 0:
                     return False
         return True
-
+   #auto solver
     def solve_gui(self):
         self.update_model()
         find = find_empty(self.model)
@@ -170,6 +170,7 @@ def main():
         pygame.font.init()
         win = pygame.display.set_mode((540, 600))
         pygame.display.set_caption("Sudoku")
+       
         board = Grid(9, 9, 540, 540, win, level)
         key = None
         run = True
@@ -229,7 +230,7 @@ def main():
                                 #pygame.quit()
 
 
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONDOWN:     #chking position 
                     pos = pygame.mouse.get_pos()
                     clicked = board.click(pos)
                     if clicked:
@@ -250,4 +251,4 @@ def main():
     print("Thanks for playing the game!!")
 
 main()
-pygame.quit()
+#pygame.quit()
